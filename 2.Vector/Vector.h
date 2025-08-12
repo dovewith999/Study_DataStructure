@@ -1,5 +1,75 @@
 ﻿#pragma once
 
+template<typename Vector>
+class VectorIterator
+{
+public:
+	using ValueType = typename Vector::ValueType;
+	using PointerType = ValueType*;
+	using ReferenceType = ValueType&;
+
+public:
+	VectorIterator(PointerType ptr)
+		: ptr(ptr)
+	{
+	}
+
+	VectorIterator& operator++()
+	{
+		++ptr;
+		return *this;
+	}
+
+	VectorIterator& operator++(int)
+	{
+		VectorIterator iterator = *this;
+		++(*this);
+		return iterator;
+	}
+
+	VectorIterator& operator--()
+	{
+		ptr--;
+		return *this;
+	}
+
+	VectorIterator& operator--(int)
+	{
+		VectorIterator iterator = *this;
+		--(*this);
+		return iterator;
+	}
+
+	ReferenceType operator[](int index)
+	{
+		return *(ptr + index);
+	}
+
+	PointerType operator->()
+	{
+		return ptr;
+	}
+
+	ReferenceType operator*()
+	{
+		return *ptr;
+	}
+
+	bool operator==(const VectorIterator& other) const
+	{
+		return ptr == other.ptr;
+	}
+
+	bool operator!=(const VectorIterator& other) const
+	{
+		return !(*this == other);
+	}
+
+private:
+	PointerType ptr;
+};
+
+
 // 동적으로(실행 중에) 크기가 변하는 배열
 // 템플릿은 같은 파일에 구현까지 해야함
 // inl. 인라인 약자로 하는 한 클래스에서 템플릿을 전부 처리하면 파일이 너무 길어져서 inl 파일로 따로 처리를 했으나 최근에는 따로 안하고 그냥 템플릿은 하나의 파일로 처리
@@ -7,10 +77,14 @@ template<typename T>
 class Vector
 {
 public:
+	using ValueType = T;
+	using Iterator = VectorIterator<Vector<T>>;
+
+public:
 	Vector()
-		: size(0), capacity(2)
 	{
-		data = new T(capacity);
+		// allocate 2 elements.
+		Reallocate(2);
 	}
 	// RAII
 	~Vector()
@@ -26,7 +100,7 @@ public:
 	{
 		if (size == capacity)
 		{
-			ReAllocate(capacity * 2);
+			Reallocate(capacity * 2);
 		}
 
 		//저장된 마지막 요소 다음 위치에 새로운 값 저장 후 크기 증가 처리
@@ -39,7 +113,7 @@ public:
 	{
 		if (size == capacity)
 		{
-			ReAllocate(capacity * 2);
+			Reallocate(capacity * 2);
 		}
 
 		// 핵심. Move Semantic
@@ -67,6 +141,17 @@ public:
 		data[index] = value;
 	}
 
+	Iterator begin()
+	{
+		return Iterator(data);
+	}
+
+	Iterator end()
+	{
+		return Iterator(data + size);
+	}
+
+
 public: /*연산자 오버로딩*/
 	// 접근 및 설정을 위한 인덱스 연산자 오버로딩
 	T& operator[](int index)
@@ -91,19 +176,26 @@ public: /*연산자 오버로딩*/
 	}
 
 private:
-	void ReAllocate(int newCapacity)
+	void Reallocate(size_t newCapacity)
 	{
-		// TODO : 새로운 공간에 재할당 필요함
-		// 1. 새로운 공간 할당
+		// 1. allocate a new block of memory.
 		T* newBlock = new T[newCapacity];
-		memset(newBlock, 0, sizeof(T) * newCapacity);
-		// 2. 기존 값 복사/이동
-		//for (int i = 0; i < capacity; ++i)
-		//{
-		//	newBlock[i] = data[ix];
-		//}
-		memcpy(newBlock, data, sizeof(T) * capacity);
-		// 3. 다 쓴 메모리 공간 해제 및 업데이트
+
+		// when vector is downsizing we need to check if new capacity is less than size.
+		// in this case vector could be overflow.
+		if (newCapacity < size)
+		{
+			size = newCapacity;
+		}
+
+		// 2. copy/move ole elements into new block.
+		for (size_t ix = 0; ix < size; ++ix)
+		{
+			//newBlock[ix] = data[ix];
+			newBlock[ix] = std::move(data[ix]);
+		}
+
+		// 3. delete
 		delete[] data;
 		data = newBlock;
 		capacity = newCapacity;
