@@ -7,9 +7,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1.Array", "1.Array\1.Array.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "2.Vector", "2.Vector\2.Vector.vcxproj", "{687E478B-85A4-4BA7-8788-2599C4D61844}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4.Recursive", "Recursive\Recursive.vcxproj", "{678F3A35-493A-43B3-9B44-53E747A9FF10}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3.Recursive", "Recursive\Recursive.vcxproj", "{678F3A35-493A-43B3-9B44-53E747A9FF10}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3.LinkedList", "3.LinkedList\3.LinkedList.vcxproj", "{F64FDD5D-FA2D-4ABC-8E60-26DAA39CEFC8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4.LinkedList", "3.LinkedList\3.LinkedList.vcxproj", "{F64FDD5D-FA2D-4ABC-8E60-26DAA39CEFC8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "5.DoubleLinkedList", "5.DoubleLinkedList\5.DoubleLinkedList.vcxproj", "{C33E7170-0F34-43FE-882C-26D05784BFE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{F64FDD5D-FA2D-4ABC-8E60-26DAA39CEFC8}.Release|x64.Build.0 = Release|x64
 		{F64FDD5D-FA2D-4ABC-8E60-26DAA39CEFC8}.Release|x86.ActiveCfg = Release|Win32
 		{F64FDD5D-FA2D-4ABC-8E60-26DAA39CEFC8}.Release|x86.Build.0 = Release|Win32
+		{C33E7170-0F34-43FE-882C-26D05784BFE0}.Debug|x64.ActiveCfg = Debug|x64
+		{C33E7170-0F34-43FE-882C-26D05784BFE0}.Debug|x64.Build.0 = Debug|x64
+		{C33E7170-0F34-43FE-882C-26D05784BFE0}.Debug|x86.ActiveCfg = Debug|Win32
+		{C33E7170-0F34-43FE-882C-26D05784BFE0}.Debug|x86.Build.0 = Debug|Win32
+		{C33E7170-0F34-43FE-882C-26D05784BFE0}.Release|x64.ActiveCfg = Release|x64
+		{C33E7170-0F34-43FE-882C-26D05784BFE0}.Release|x64.Build.0 = Release|x64
+		{C33E7170-0F34-43FE-882C-26D05784BFE0}.Release|x86.ActiveCfg = Release|Win32
+		{C33E7170-0F34-43FE-882C-26D05784BFE0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

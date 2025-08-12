@@ -1,5 +1,8 @@
 ﻿#include "LinkedList.h"
 
+#include <list> // 이중 연결 리스트
+#include <forward_list> // 단일 연결 리스트
+
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
@@ -9,17 +12,47 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	LinkedList list;
-	
-	list.Insert(10);
-	list.Insert(50);
-	list.Insert(30);
-	list.Insert(20);
 
-	list.Print();
+	char input[50] = {};
+	while (true)
+	{
+		std::cout << "추가할 데이터를 입력해주세요(종료는 q)\n";
+		std::cin >> input;
 
-	list.Delete(100);
-	list.Delete(30);
-	list.Delete(50);
+		if (strcmp(input, "q") == 0 || strcmp(input, "Q") == 0)
+		{
+			break;
+		}
+
+		if (!atoi(input))
+		{
+			std::cout << "숫자만 입력 가능합니다.\n";
+			continue;
+		}
+
+		list.Insert(atoi(input));
+		list.Print();
+	}
+
+	while (true)
+	{
+		std::cout << "삭제할 데이터를 입력해주세요(종료는 q)\n";
+		std::cin >> input;
+
+		if (strcmp(input, "q") == 0 || strcmp(input, "Q") == 0)
+		{
+			break;
+		}
+
+		if (!atoi(input))
+		{
+			std::cout << "숫자만 입력 가능합니다.\n";
+			continue;
+		}
+
+		list.Delete(atoi(input));
+		list.Print();
+	}
 
 	std::cin.get();
 	return 0;
