@@ -34,6 +34,19 @@ public:
 		++size;
 	}
 
+	// RValue Reference
+	void PushBack(T&& value)
+	{
+		if (size == capacity)
+		{
+			ReAllocate(capacity * 2);
+		}
+
+		// 핵심. Move Semantic
+		data[size] = std::move(value);
+		++size;
+	}
+
 	T& At(int index)
 	{
 		if (index >= size || index < 0)
