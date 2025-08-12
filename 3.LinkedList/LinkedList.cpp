@@ -8,7 +8,18 @@ LinkedList::LinkedList()
 
 LinkedList::~LinkedList()
 {
-	// TODO : 삭제 로직 완성해야 함
+	// 노드 계산을 위한 변수 선언
+	Node* current = head;
+	Node* trail = nullptr;
+
+	while (current != nullptr)
+	{
+		trail = current;
+		current = current->next;
+		delete trail;
+		trail = nullptr;
+		--count; // 디버깅 목적
+	}
 }
 
 void LinkedList::AddToHead(int newData)
@@ -57,7 +68,51 @@ void LinkedList::Insert(int newData)
 
 void LinkedList::Delete(int data)
 {
-	// TODO : 삭제 로직 구현해야 함
+	//리스트가 비어 있으면 종료
+	if (head == nullptr)
+	{
+		std::cout << "리스트가 비어 있어서 삭제가 불가능합니다.\n";
+		return;
+	}
+
+	Node* current = head;
+	Node* trail = nullptr;
+
+	while (current != nullptr)
+	{
+		// 종료 조건 
+		// 찾으려는 데이터를 가진 노드 검색에 성공한 경우
+		if (current->data == data)
+		{
+			break;
+		}
+
+		// 못찾았으면 검색 이어감
+		trail = current;
+		current = current->next;
+	}
+
+	// 끝까지 순회했으나 값이 없는 경우
+	if (current == nullptr)
+	{
+		std::cout << "값: " << data << "를 찾지 못했습니다.\n";
+		return;
+	}
+
+	// 검색에 성공한 경우
+	if (current == head)
+	{
+		head = head->next;
+	}
+
+	else
+	{
+		trail->next = current->next;
+	}
+
+	delete current;
+	current = nullptr;
+	--count;
 }
 
 void LinkedList::Print()
