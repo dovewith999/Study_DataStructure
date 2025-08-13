@@ -72,6 +72,54 @@ public:
 		++count;
 	}
 
+	void PushFirst(const T& newData)
+	{
+		// 새로운 노드 추가
+		Node<T>* newNode = new Node<T>();
+		newNode->data = newData;
+
+		Node<T>* next = first->next;
+		newNode->next = next;
+		newNode->previous = first;
+		first->next = newNode;
+		next->previous = newNode;
+
+		// 저장하고 있는 노드 개수 증가
+		++count;
+	}
+
+	void Delete(const T& deleteData)
+	{
+		// 지우려는 데이터 검색
+		Node<T>* deleteNode = first->next;
+
+		if (deleteNode == nullptr)
+		{
+			std::cout << "리스트가 비어있어 노드를 삭제할 수 없습니다.\n";
+			return;
+		}
+		while (deleteNode && deleteNode != last)
+		{
+			if (deleteNode->data == deleteData)
+			{
+				break;
+			}
+
+			deleteNode = deleteNode->next;
+		}
+		// 삭제
+		if (!deleteNode || deleteNode == last)
+		{
+			std::cout << "삭제할 노드를 찾지 못했습니다.\n";
+			return;
+		}
+
+		deleteNode->previous->next = deleteNode->next;
+		deleteNode->next->previous = deleteNode->previous;
+		SafeDelete(deleteNode);
+		--count;
+	}
+
 	// 출력
 	void Print()
 	{
