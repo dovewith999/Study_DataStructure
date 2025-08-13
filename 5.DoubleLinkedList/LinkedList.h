@@ -1,4 +1,8 @@
-﻿#pragma once
+﻿#include "ExpStack.h"
+#include "ExpStack.h"
+#include "ExpStack.h"
+#include "ExpStack.h"
+#pragma once
 #include <iostream>
 #include "Node.h"
 
