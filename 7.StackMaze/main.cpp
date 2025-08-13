@@ -13,7 +13,7 @@ public:
 
 public:
 	//출력 편의를 위해 연산자 오버로딩
-	friend std::ostream& operator<<(std::ostream os, const Vector2 position)
+	friend std::ostream& operator<<(std::ostream& os, const Vector2 position)
 	{
 		return os << "(" << position.x << ", " << position.y << ")";
 	}
@@ -82,7 +82,7 @@ int main()
 		// 현재 위치 반환
 		Vector2 currentLocation;
 		locationStack.Pop(currentLocation);
-		std::cout << &currentLocation << " ";
+		std::cout << currentLocation << " ";
 
 		if (map[currentLocation.y][currentLocation.x] == 'g')
 		{
