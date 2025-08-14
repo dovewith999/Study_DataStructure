@@ -26,6 +26,9 @@ public:
 	// 노드 삭제
 	void Delete(int data);
 
+	// 버블 정렬을 이용한 정렬
+	void Sort();
+
 	// 출력
 	void Print();
 

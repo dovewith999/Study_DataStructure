@@ -115,6 +115,113 @@ void LinkedList::Delete(int data)
 	--count;
 }
 
+void LinkedList::Sort()
+{
+	if (head == nullptr || head->next == nullptr)
+	{
+		std::cout << "정렬할 노드가 부족합니다.\n";
+		return;
+	}
+
+	
+#pragma region 버블 정렬
+	// [2]->[1]->[3]
+	//bool swap = true;
+
+	//while (swap)
+	//{
+	//	swap = false;
+	//	Node* current = head; //[2]
+	//	Node* next = current->next; // [1]
+	//	Node* trail = nullptr;	
+
+	//	while (next != nullptr)
+	//	{
+	//		if (current->data > next->data)
+	//		{
+	//			current->next = next->next; // [2]->[1] => [2]->[3]
+	//			next->next = current; //[1]->[3] => [1]->[2]
+
+	//			if (trail == nullptr)
+	//			{
+	//				head = next; // head = [2] => head = [1]
+	//			}
+
+	//			else
+	//			{
+	//				trail->next = next;
+	//			}
+
+	//			trail = next; // trail = nullptr => trail = [1]
+	//			next = current->next; // next = [1] => next = [3]
+	//			//current = trail->next; // current = [2] => current = [2]
+	//			swap = true; // swap이 발생했으므로 다시 플래그를 true로
+	//		}
+
+	//		else
+	//		{
+	//			// 이미 정렬되어 있어 Swap이 발생하지 않음
+	//			// [2]->[1]->[3]에서 [2]->[1]이 [1]->[2]가 되고 [2]->[3]을 swao을 검사하면 여기로 옴
+	//			trail = current; // trail = [1] => trail = [2]
+	//			current = next; // current = [2] => current = [3]
+	//			next = next->next; // [3] 다음거랑 비교, 지금은 nullptr이므로 while문 종료
+	//		}
+	//	}
+	//}
+#pragma endregion
+
+
+#pragma region 선택 정렬
+	Node* currentNode = head;
+	Node* minNode = currentNode; // 데이터 값이 가장 작은 노드
+	Node* indexNode = nullptr; // 이 노드의 next로 minNode를 연결할 것, 그리고 insertNode를 minNode로 갱신 -> 이게 trailNode 역할
+
+	int count = this->count;
+
+	while (--count)
+	{
+		while (currentNode != nullptr) // 현재 리스트에서 가장 작은 노드를 검사
+		{
+			if (minNode->data > currentNode->data)
+			{
+				minNode = currentNode;
+			}
+
+			currentNode = currentNode->next;
+		}
+
+		if (indexNode == nullptr) // 첫 검사라면(제일 작은 값)
+		{
+			head->next = minNode->next;
+			minNode->next = head;
+			indexNode = minNode; // minnode의 ->next로 연결해야하므로
+			head = indexNode;
+		}
+
+		else
+		{
+			minNode->next = indexNode->next;
+			indexNode->next = minNode; // 이전에 연결된 노드의 next로 minNode를 연결
+			indexNode = minNode; // insertNode를 minNode로 갱신
+		}
+
+		currentNode = indexNode->next;
+
+		while (currentNode != nullptr)
+		{
+			if (currentNode->next == indexNode)
+			{
+				currentNode->next = minNode->next;
+			}
+
+			currentNode = currentNode->next;
+		}
+
+		minNode = indexNode->next; // 비교대상
+	}
+#pragma endregion
+}
+
 void LinkedList::Print()
 {
 	// 모든 노드 순회하면서 Data 출력
