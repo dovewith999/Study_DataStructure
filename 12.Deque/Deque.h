@@ -51,8 +51,8 @@ public:
 		}
 
 		//앞 이전 위치에 데이터 추가
-		front = (front - 1 + size) % size;
 		datas[front] = newData;
+		front = (front - 1 + size) % size;
 
 		return true;
 	}
