@@ -1,8 +1,4 @@
-﻿#include "ExpStack.h"
-#include "ExpStack.h"
-#include "ExpStack.h"
-#include "ExpStack.h"
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include "Node.h"
 
