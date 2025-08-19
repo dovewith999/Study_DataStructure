@@ -11,8 +11,8 @@ private:
 	using Entry = TPair<std::string, std::string>; // 키와 값을 저장할 Pair 타입 정의
 
 public:
-	explicit HashTable();
-	~HashTable();
+	explicit HashTable() = default;
+	~HashTable() = default;
 
 public:
 	// 해시 테이블에 키-값 쌍 추가

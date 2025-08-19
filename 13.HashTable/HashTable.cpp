@@ -19,14 +19,6 @@ int GenerateKey(const std::string& keyString)
 	return key < 0 ? key * -1 : key;
 }
 
-HashTable::HashTable()
-{
-}
-
-HashTable::~HashTable()
-{
-}
-
 void HashTable::Add(const std::string& key, const std::string& value)
 {
 	// 키 생성
