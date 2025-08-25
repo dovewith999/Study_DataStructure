@@ -1,4 +1,7 @@
-﻿#pragma once
+﻿#include "Node.h"
+#include "Node.h"
+#include "Node.h"
+#pragma once
 #include "List.h"
 
 template<typename T>
@@ -19,6 +22,7 @@ public:
 	{
 		parent = nullptr;
 	}
+
 
 public:
 	void AddChild(Node<T>* child)
